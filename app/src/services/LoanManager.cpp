@@ -1,6 +1,7 @@
 // LoanManager.cpp - Implémentation du gestionnaire d'emprunts
 #include "LoanManager.h"
 #include <algorithm>
+#include <iterator>
 
 void LoanManager::borrowBook(const Book& book, const User& user, const std::string& date) {
     loans.push_back({book, user, date, ""});
