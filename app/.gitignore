@@ -1,0 +1,15 @@
+# Compiled files
+*.o
+*.exe
+*.out
+
+# Build directory
+obj/
+library_app
+
+# IDE files
+.vscode/
+.idea/
+
+# Data files
+# data/*.txt
