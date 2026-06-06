@@ -3,12 +3,13 @@
 #include <fstream>
 #include <sstream>
 
-void Backup::saveToFile(const std::string& filename, const std::string& data) {
+bool Backup::saveToFile(const std::string& filename, const std::string& data) {
     std::ofstream file(filename);
-    if (file.is_open()) {
-        file << data;
-        file.close();
+    if (!file.is_open()) {
+        return false;
     }
+    file << data;
+    return file.good();
 }
 
 std::string Backup::loadFromFile(const std::string& filename) {

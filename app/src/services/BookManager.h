@@ -2,12 +2,13 @@
 #ifndef BOOKMANAGER_H
 #define BOOKMANAGER_H
 
+#include <list>
 #include <vector>
 #include "../models/Book.h"
 
 class BookManager {
 private:
-    std::vector<Book> books;
+    std::list<Book> books;
 public:
     void addBook(const Book& book);
     bool removeBook(const std::string& title);

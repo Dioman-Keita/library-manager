@@ -24,5 +24,5 @@ User* UserManager::findUser(int id) {
 }
 
 std::vector<User> UserManager::getAllUsers() const {
-    return users;
+    return std::vector<User>(users.begin(), users.end());
 }

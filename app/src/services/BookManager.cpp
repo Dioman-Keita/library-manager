@@ -24,5 +24,5 @@ Book* BookManager::findBook(const std::string& title) {
 }
 
 std::vector<Book> BookManager::getAllBooks() const {
-    return books;
+    return std::vector<Book>(books.begin(), books.end());
 }

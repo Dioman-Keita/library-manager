@@ -2,12 +2,13 @@
 #ifndef USERMANAGER_H
 #define USERMANAGER_H
 
+#include <list>
 #include <vector>
 #include "../models/User.h"
 
 class UserManager {
 private:
-    std::vector<User> users;
+    std::list<User> users;
 public:
     void addUser(const User& user);
     bool removeUser(int id);

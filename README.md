@@ -4,20 +4,29 @@ Système de gestion de bibliothèque en C++.
 
 ## Structure du projet
 
-- `src/` : Code source
-  - `models/` : Classes Book et User
-  - `services/` : Logique métier (Library, BookManager, UserManager, LoanManager)
-  - `utils/` : Utilitaires (Backup)
+- `app/`
+  - `src/` : Code source
+    - `models/` : Classes Book et User
+    - `services/` : Logique métier (Library, BookManager, UserManager, LoanManager)
+    - `utils/` : Utilitaires (Backup)
+  - `Makefile` : Script de compilation
+  - `README.md` : Documentation du module application
 - `data/` : Fichiers de données (livres, utilisateurs, emprunts)
 - `tests/` : Tests unitaires
 - `docs/` : Documentation
 
 ## Compilation
 
-Utilisez le Makefile fourni :
+Depuis la racine du dépôt :
 
 ```bash
-make
+cd app && make
+```
+
+Ou en restant à la racine :
+
+```bash
+make -C app
 ```
 
 ## Auteur

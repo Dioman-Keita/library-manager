@@ -8,7 +8,7 @@ void LoanManager::borrowBook(const Book& book, const User& user, const std::stri
 
 void LoanManager::returnBook(const Book& book) {
     auto it = std::find_if(loans.begin(), loans.end(),
-        [&book](const Loan& l) { return l.book.getTitle() == book.getTitle(); });
+        [&book](const Loan& l) { return l.book.getTitle() == book.getTitle() && l.returnDate.empty(); });
     if (it != loans.end()) {
         it->returnDate = "today";
     }
