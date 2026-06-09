@@ -6,13 +6,13 @@
 
 class User {
 private:
-    int id;
+    std::string id;
     std::string name;
     std::string email;
 
 public:
-    User(int id, const std::string& name, const std::string& email);
-    int getId() const;
+    User(const std::string& id, const std::string& name, const std::string& email);
+    const std::string& getId() const;
     std::string getName() const;
     std::string getEmail() const;
 };
