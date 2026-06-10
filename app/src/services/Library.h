@@ -5,11 +5,12 @@
 #include "../models/Book.h"
 #include "../models/User.h"
 
-class Library {
+class Library
+{
 public:
-    void addBook(const Book& book);
-    void removeBook(const std::string& title);
-    void registerUser(const User& user);
+  void addBook(const Book &book);
+  void removeBook(const std::string &title);
+  void registerUser(const User &user);
 };
 
 #endif
