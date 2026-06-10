@@ -1,13 +1,18 @@
 // main.cpp - Point d'entrée du programme
 #include <iostream>
+#include <limits>
 #include "services/Library.h"
 #include "services/BookManager.h"
 using namespace std;
 
 int main()
 {
-    cout << "*******Bienvenue dans le système de gestion de bibliothèque********" << endl;
-    cout << "*Que souheter vous faire*" << endl;
+    cout << "==============================================" << endl;
+    cout << "  Bienvenue dans le système de gestion de bibliothèque" << endl;
+    cout << "==============================================" << endl;
+    cout << "Que souhaitez-vous faire ?" << endl
+         << endl;
+
     string title;
     string autheur;
     int years;
@@ -18,12 +23,18 @@ int main()
 
     while (choix != 0)
     {
-        cout << " 1- voir tous les livre " << endl;
-        cout << " 2- ajouter un livre " << endl;
-        cout << " 3- retirer un livre  " << endl;
-        cout << " 4- rechercher un livre" << endl;
-        cout << " 0- quitter " << endl;
+        cout << "Menu principal" << endl;
+        cout << "------------------------------" << endl;
+        cout << "1 - Voir tous les livres" << endl;
+        cout << "2 - Ajouter un livre" << endl;
+        cout << "3 - Retirer un livre" << endl;
+        cout << "4 - Rechercher un livre" << endl;
+        cout << "0 - Quitter" << endl;
+        cout << "------------------------------" << endl;
+        cout << "Votre choix : ";
         cin >> choix;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << endl;
         switch (choix)
         {
 
@@ -51,13 +62,15 @@ int main()
         }
         case 2:
         {
-
-            cout << " Titre : ";
-            cin >> title;
-            cout << " Auteur : ";
-            cin >> autheur;
-            cout << " annee: ";
+            cout << "Ajout d'un livre" << endl;
+            cout << "----------------" << endl;
+            cout << "Titre : ";
+            getline(cin, title);
+            cout << "Auteur : ";
+            getline(cin, autheur);
+            cout << "Année : ";
             cin >> years;
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             Book livre(title, autheur, years);
             Stock.addBook(livre);
             library.addBook(livre);
@@ -65,27 +78,27 @@ int main()
         }
         case 3:
         {
-
-            cout << "retirer un livre" << endl;
-            cout << " Titre : ";
-            cin >> title;
+            cout << "Retirer un livre" << endl;
+            cout << "----------------" << endl;
+            cout << "Titre : ";
+            getline(cin, title);
             Stock.removeBook(title);
             library.removeBook(title);
             break;
         }
-        break;
         case 4:
         {
-
-            cout << "rechercher un livre" << endl;
-            cout << " Titre : ";
-            cin >> title;
+            cout << "Rechercher un livre" << endl;
+            cout << "--------------------" << endl;
+            cout << "Titre : ";
+            getline(cin, title);
             Book *livre = Stock.findBook(title);
             if (livre != nullptr)
             {
-                cout << "Titre : " << livre->getTitle() << endl;
+                cout << "Livre trouvé :" << endl;
+                cout << "Titre  : " << livre->getTitle() << endl;
                 cout << "Auteur : " << livre->getAuthor() << endl;
-                cout << "Annee : " << livre->getYear() << endl;
+                cout << "Année  : " << livre->getYear() << endl;
             }
             else
             {
