@@ -16,7 +16,7 @@ int main()
     string title;
     string autheur;
     int years;
-    int choix;
+    int choix = -1;
     Library library;
 
     BookManager Stock;
@@ -32,11 +32,21 @@ int main()
         cout << "0 - Quitter" << endl;
         cout << "------------------------------" << endl;
         cout << "Votre choix : ";
-        cin >> choix;
+        
+        if (!(cin >> choix))
+        {
+            cout << "Saisie invalide. Veuillez entrer un nombre." << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            continue;
+        }
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cout << endl;
         switch (choix)
         {
+        case 0:
+            cout << "Au revoir !" << endl;
+            break;
 
         case 1:
         {
@@ -69,7 +79,12 @@ int main()
             cout << "Auteur : ";
             getline(cin, autheur);
             cout << "Année : ";
-            cin >> years;
+            while (!(cin >> years))
+            {
+                cout << "Année invalide. Veuillez entrer un nombre : ";
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            }
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             Book livre(title, autheur, years);
             Stock.addBook(livre);
@@ -82,8 +97,15 @@ int main()
             cout << "----------------" << endl;
             cout << "Titre : ";
             getline(cin, title);
-            Stock.removeBook(title);
-            library.removeBook(title);
+            if (Stock.removeBook(title))
+            {
+                library.removeBook(title);
+                cout << "Livre retiré avec succès." << endl;
+            }
+            else
+            {
+                cout << "Erreur : Livre non trouvé." << endl;
+            }
             break;
         }
         case 4:
@@ -108,7 +130,7 @@ int main()
         }
 
         default:
-            cout << "Choix inexistant";
+            cout << "Choix inexistant" << endl;
             break;
         }
     }
