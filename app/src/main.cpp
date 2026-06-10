@@ -32,9 +32,14 @@ int main()
         cout << "0 - Quitter" << endl;
         cout << "------------------------------" << endl;
         cout << "Votre choix : ";
-        
+
         if (!(cin >> choix))
         {
+            if (cin.eof())
+            {
+                cout << "\nEntrée terminée (EOF). Sortie." << endl;
+                break;
+            }
             cout << "Saisie invalide. Veuillez entrer un nombre." << endl;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -79,13 +84,29 @@ int main()
             cout << "Auteur : ";
             getline(cin, autheur);
             cout << "Année : ";
-            while (!(cin >> years))
+            bool year_ok = false;
+            while (true)
             {
+                if (cin >> years)
+                {
+                    year_ok = true;
+                    break;
+                }
+                if (cin.eof())
+                {
+                    cout << "\nEntrée terminée (EOF). Annulation de l'ajout." << endl;
+                    break;
+                }
                 cout << "Année invalide. Veuillez entrer un nombre : ";
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
             }
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            if (!year_ok)
+            {
+                cout << "Ajout annulé." << endl;
+                break;
+            }
             Book livre(title, autheur, years);
             Stock.addBook(livre);
             library.addBook(livre);
