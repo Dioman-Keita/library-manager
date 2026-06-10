@@ -2,14 +2,17 @@
 #include "Library.h"
 #include <iostream>
 
-void Library::addBook(const Book& book) {
+void Library::addBook(const Book &book)
+{
     std::cout << "Ajout du livre : " << book.getTitle() << std::endl;
 }
 
-void Library::removeBook(const std::string& title) {
+void Library::removeBook(const std::string &title)
+{
     std::cout << "Suppression du livre : " << title << std::endl;
 }
 
-void Library::registerUser(const User& user) {
+void Library::registerUser(const User &user)
+{
     std::cout << "Inscription de l'utilisateur : " << user.getName() << std::endl;
 }
