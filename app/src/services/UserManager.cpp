@@ -16,7 +16,7 @@ void UserManager::addUser(Bibliotheque& biblio) {
     cin >> id;
 
     // Création de l'objet User (assure-toi que Assitan a ce constructeur)
-    User newUser(name, email, id);
+    User newUser(id, name, email);
     
     // On l'ajoute au vecteur central de la classe Bibliotheque de Dioman
     biblio.utilisateurs.push_back(newUser);
@@ -51,7 +51,7 @@ void UserManager::displayAllUsers(const Bibliotheque& biblio) const {
         cout << "Aucun utilisateur dans la base de données." << endl;
         return;
     }
-    for (const auto& user : biblio.utilisateurs) {
-        user.display(); // Assitan doit créer cette méthode display() ou afficher()
+        for (const auto& user : biblio.utilisateurs) {
+        cout << "ID : " << user.getId() << " | Nom : " << user.getName() << " | Email : " << user.getEmail() << endl;
     }
 }
