@@ -1,3 +1,9 @@
+#pragma once
+#include <string>
+#include <optional>
+#include <vector>
+#include "../models/Borrow.h"
+
 class IBorrowRepository {
 public:
     virtual ~IBorrowRepository() = default;

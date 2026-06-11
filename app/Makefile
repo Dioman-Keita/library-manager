@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -std=c++11 -Wall
+CXXFLAGS = -std=c++17 -Wall -I$(SRCDIR)
 TARGET = library_app
 SRCDIR = src
 OBJDIR = obj
@@ -11,6 +11,8 @@ SOURCES = $(SRCDIR)/main.cpp \
           $(SRCDIR)/services/BookManager.cpp \
           $(SRCDIR)/services/UserManager.cpp \
           $(SRCDIR)/services/LoanManager.cpp \
+          $(SRCDIR)/models/Borrow.cpp \
+          $(SRCDIR)/services/BorrowManager.cpp \
           $(SRCDIR)/utils/Backup.cpp
 
 OBJECTS = $(SOURCES:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)

@@ -1,7 +1,7 @@
 // application.h
 #pragma once
-#include "Borrow.h"  // Pour avoir accès à  Borrow
-#include "BorrowRepository" // Pour avoir accès à IBorrowRepository 
+#include "../models/Borrow.h"
+#include "../repository/BorrowRepository.h" // Pour avoir accès à IBorrowRepository 
 
 // Cas d'usage : Emprunter un livre
 class BorrowBookUseCase {

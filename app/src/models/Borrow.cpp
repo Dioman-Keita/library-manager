@@ -7,7 +7,7 @@
 
 // Implémentation du Constructeur
 Borrow::Borrow(std::string id, std::string user_id, std::string book_id, int duration_days)
-    : id(id), user_id(user_id), book_id(book_id), returned_at(std::nullopt) {
+      : id(std::move(id)), user_id(std::move(user_id)), book_id(std::move(book_id)), returned_at(std::nullopt)  {
     
     this->borrowed_at = std::chrono::system_clock::now();
     this->due_date = this->borrowed_at + std::chrono::hours(24 * duration_days);
