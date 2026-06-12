@@ -1,2 +1,4 @@
 1|Le sorcier et la sorciere|Dioman Keita|2008|ISBN-009
 2|Macha et le ballon d'or|Asma|2003|94040
+5|Mamadou et Bineta|Assitan sidibe|2001|23
+6|0|gdd|0|yytr
