@@ -36,9 +36,9 @@ library-manager/
 
 ## Requirements
 
-* C++17 or later
+* C++11 or later
 * GNU Make (optional)
-* CMake 3.16+
+* CMake 3.10+
 
 ## Build
 
@@ -68,15 +68,17 @@ cmake --build build
 
 ## Running
 
-After compilation, the executable can be launched from the build directory.
+After compilation, launch the generated executable from the build directory.
 
 The `data/` directory is automatically copied next to the executable so the application can access its files at runtime.
 
 ## Testing
 
+Run the test suite with:
+
 ```bash
-cd tests
-# Run test suite
+cd app
+make test
 ```
 
 ## Documentation
