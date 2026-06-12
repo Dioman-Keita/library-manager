@@ -9,7 +9,9 @@ bool Library::addBook(const Book& book) {
 }
 
 bool Library::removeBookById(const std::string& id) {
-    return bookManager.removeBookById(id);
+    bool ok = bookManager.removeBookById(id);
+    if (ok) saveData("data");
+    return ok;
 }
 
 bool Library::registerUser(const User& user) {

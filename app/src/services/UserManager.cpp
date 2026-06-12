@@ -5,8 +5,13 @@
 #include <sstream>
 
 bool UserManager::addUser(const User& user) {
-    // prevent duplicate email
+    // prevent duplicate email or member number
     if (findUserByEmail(user.getEmail())) return false;
+    for (const auto& existing : users) {
+        if (!user.getMemberNumber().empty() && existing.getMemberNumber() == user.getMemberNumber()) {
+            return false;
+        }
+    }
     users.push_back(user);
     return true;
 }
@@ -39,7 +44,7 @@ bool UserManager::saveToFile(const std::string& path) const {
     std::ofstream ofs(path);
     if (!ofs) return false;
     for (auto& u : users) {
-        ofs << u.getId() << "|" << u.getName() << "|" << u.getEmail() << "\n";
+        ofs << u.getId() << "|" << u.getName() << "|" << u.getEmail() << "|" << u.getMemberNumber() << "\n";
     }
     return true;
 }
@@ -52,11 +57,12 @@ bool UserManager::loadFromFile(const std::string& path) {
     while (std::getline(ifs, line)) {
         if (line.empty()) continue;
         std::istringstream ss(line);
-        std::string id, name, email;
+        std::string id, name, email, memberNumber;
         if (!std::getline(ss, id, '|')) continue;
         if (!std::getline(ss, name, '|')) continue;
         if (!std::getline(ss, email, '|')) continue;
-        users.emplace_back(id, name, email);
+        if (!std::getline(ss, memberNumber, '|')) memberNumber = "";
+        users.emplace_back(id, name, email, memberNumber);
     }
     return true;
 }

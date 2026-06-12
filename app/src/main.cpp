@@ -8,6 +8,22 @@ int main() {
     Library lib;
     User* currentUser = nullptr;
 
+    auto checkBookAvailability = [&lib]() {
+        std::string bookId;
+        std::cout << "ID du livre: ";
+        std::getline(std::cin, bookId);
+        auto* book = lib.books().findBookById(bookId);
+        if (!book) {
+            std::cout << "Livre introuvable.\n";
+            return;
+        }
+        if (lib.isBookAvailable(bookId)) {
+            std::cout << "Le livre est disponible pour emprunt.\n";
+        } else {
+            std::cout << "Le livre n'est pas disponible pour emprunt.\n";
+        }
+    };
+
     // Load persisted data if available
     lib.loadData("data");
 
@@ -37,15 +53,20 @@ int main() {
                     std::cout << "Utilisateur non trouvé. Inscrivez-vous d'abord.\n";
                 }
             } else if (choice == 2) {
-                std::string name, email;
+                std::string name, email, memberNumber;
                 std::cout << "Nom: "; std::getline(std::cin, name);
                 std::cout << "Email: "; std::getline(std::cin, email);
+                std::cout << "Numéro de membre: "; std::getline(std::cin, memberNumber);
+                if (memberNumber.empty()) {
+                    std::cout << "Erreur: le numéro de membre est obligatoire. Inscription annulée.\n";
+                    continue;
+                }
                 std::string uid = util::generateId();
-                User u(uid, name, email);
+                User u(uid, name, email, memberNumber);
                 if (lib.registerUser(u)) {
                     std::cout << "Utilisateur créé avec ID: " << uid << "\n";
                 } else {
-                    std::cout << "Erreur: email déjà utilisé. Inscription annulée.\n";
+                    std::cout << "Erreur: email ou numéro de membre déjà utilisé. Inscription annulée.\n";
                 }
             }
             continue;
@@ -59,14 +80,16 @@ int main() {
             std::cout << "3) Lister les livres\n";
             std::cout << "4) Lister les utilisateurs\n";
             std::cout << "5) Rechercher un livre\n";
-            std::cout << "6) Déconnecter\n";
+            std::cout << "6) Vérifier la disponibilité d'un livre\n";
+            std::cout << "7) Déconnecter\n";
         } else {
             std::cout << "1) Emprunter un livre (par ID)\n";
             std::cout << "2) Retourner un livre (par ID)\n";
             std::cout << "3) Lister les livres\n";
             std::cout << "4) Mes emprunts\n";
             std::cout << "5) Rechercher un livre\n";
-            std::cout << "6) Déconnecter\n";
+            std::cout << "6) Vérifier la disponibilité d'un livre\n";
+            std::cout << "7) Déconnecter\n";
         }
         std::cout << "0) Quitter\n";
         std::cout << "Choix: ";
@@ -105,7 +128,11 @@ int main() {
                 auto users = lib.listUsers();
                 std::cout << "Utilisateurs:\n";
                 for (auto& us : users) {
-                    std::cout << "- [" << us.getId() << "] " << us.getName() << " <" << us.getEmail() << ">\n";
+                    std::cout << "- [" << us.getId() << "] " << us.getName() << " <" << us.getEmail() << ">";
+                    if (!us.getMemberNumber().empty()) {
+                        std::cout << " Numéro de membre:" << us.getMemberNumber();
+                    }
+                    std::cout << "\n";
                 }
             } else if (choice == 5) {
                 std::cout << "Recherche par (t)itre, (a)uteur, (i)sbn? ";
@@ -124,6 +151,8 @@ int main() {
                     for (auto& bk : res) std::cout << "- ["<<bk.getId()<<"] "<<bk.getTitle()<<" ISBN:"<<bk.getIsbn()<<"\n";
                 }
             } else if (choice == 6) {
+                checkBookAvailability();
+            } else if (choice == 7) {
                 currentUser = nullptr; std::cout << "Déconnecté.\n";
             } else {
                 std::cout << "Option inconnue.\n";
@@ -183,6 +212,8 @@ int main() {
                     for (auto& bk : res) std::cout << "- ["<<bk.getId()<<"] "<<bk.getTitle()<<" ISBN:"<<bk.getIsbn()<<"\n";
                 }
             } else if (choice == 6) {
+                checkBookAvailability();
+            } else if (choice == 7) {
                 currentUser = nullptr; std::cout << "Déconnecté.\n";
             } else {
                 std::cout << "Option inconnue.\n";
