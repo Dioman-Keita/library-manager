@@ -1,45 +1,88 @@
-# LibraryCPP
+# Library Manager
 
-Système de gestion de bibliothèque en C++.
+A simple library management system built in C++ to manage books, users, loans, and data persistence.
 
-## Structure du projet
+## Features
 
-- `app/`
-  - `src/` : Code source
-    - `models/` : Classes Book et User
-    - `services/` : Logique métier (Library, BookManager, UserManager, LoanManager)
-    - `utils/` : Utilitaires (Backup)
-  - `Makefile` : Script de compilation
-  - `CMakeLists.txt` : Build portable multi-plateforme
-  - `README.md` : Documentation du module application
-- `data/` : Fichiers de données (livres, utilisateurs, emprunts)
-- `tests/` : Tests unitaires
-- `docs/` : Documentation
+* 📚 Book management (add, update, delete, search)
+* 👤 User management
+* 🔄 Loan and return tracking
+* 💾 Data persistence using local files
+* 🛠️ Backup utilities
+* ✅ Unit tests
 
-## Compilation
+## Project Structure
 
-Depuis la racine du dépôt :
-
-```bash
-cd app && make
+```text
+library-manager/
+├── app/
+│   ├── src/
+│   │   ├── models/       # Domain models (Book, User)
+│   │   ├── services/     # Business logic
+│   │   │   ├── Library
+│   │   │   ├── BookManager
+│   │   │   ├── UserManager
+│   │   │   └── LoanManager
+│   │   └── utils/        # Utilities (Backup, helpers)
+│   │
+│   ├── Makefile
+│   ├── CMakeLists.txt
+│   └── README.md
+│
+├── data/                 # Books, users and loan data
+├── tests/                # Unit tests
+└── docs/                 # Project documentation
 ```
 
-Ou en restant à la racine :
+## Requirements
+
+* C++17 or later
+* GNU Make (optional)
+* CMake 3.16+
+
+## Build
+
+### Using Make
+
+From the repository root:
 
 ```bash
 make -C app
 ```
 
-Build portable avec CMake :
+Or:
 
 ```bash
 cd app
+make
+```
+
+### Using CMake
+
+```bash
+cd app
+
 cmake -S . -B build
 cmake --build build
 ```
 
-Le dossier `data/` est copié à côté de l'exécutable généré pour que le programme trouve ses fichiers au lancement.
+## Running
 
-## Auteur
+After compilation, the executable can be launched from the build directory.
 
-Généré automatiquement.
+The `data/` directory is automatically copied next to the executable so the application can access its files at runtime.
+
+## Testing
+
+```bash
+cd tests
+# Run test suite
+```
+
+## Documentation
+
+Additional documentation is available in the `docs/` directory.
+
+## License
+
+This project is provided for educational purposes.
