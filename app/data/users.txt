@@ -1,1 +1,2 @@
-0dbe04ab-b28e-193f-9036-e747d481d51f|Alice|alice@example.com
+1516675b-ff9b-4a74-b905-59ddeb1b5785|Dioman Keita|diomankeita001@gmail.com
+6d45d82e-e90d-b122-7184-0590892a1fdf|Admin|admin@admin.com

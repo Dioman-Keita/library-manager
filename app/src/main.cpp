@@ -99,7 +99,7 @@ int main() {
                 auto books = lib.listBooks();
                 std::cout << "Livres:\n";
                 for (auto& bk : books) {
-                    std::cout << "- [" << bk.getId() << "] " << bk.getTitle() << " by " << bk.getAuthor() << " (" << bk.getYear() << ") ISBN:" << bk.getIsbn() << "\n";
+                    std::cout << "- [" << bk.getId() << "] " << bk.getTitle() << " par " << bk.getAuthor() << " (" << bk.getYear() << ") ISBN:" << bk.getIsbn() << "\n";
                 }
             } else if (choice == 4) {
                 auto users = lib.listUsers();
@@ -147,19 +147,23 @@ int main() {
                 auto books = lib.listBooks();
                 std::cout << "Livres:\n";
                 for (auto& bk : books) {
-                    std::cout << "- [" << bk.getId() << "] " << bk.getTitle() << " by " << bk.getAuthor() << " (" << bk.getYear() << ") ISBN:" << bk.getIsbn();
+                    std::cout << "- [" << bk.getId() << "] " << bk.getTitle() << " par " << bk.getAuthor() << " (" << bk.getYear() << ") ISBN:" << bk.getIsbn();
                     std::cout << (lib.isBookAvailable(bk.getId())?" [disponible]":" [emprunté]") << "\n";
                 }
             } else if (choice == 4) {
                 auto loans = lib.listLoansByUserId(currentUser->getId());
                 std::cout << "Mes emprunts:\n";
-                for (auto& ln : loans) {
-                    auto b = lib.books().findBookById(ln.bookId);
-                    if (b) {
-                        std::cout << "- ["<<ln.bookId<<"] "<<b->getTitle();
-                        std::cout << " (emprunté le: " << ln.borrowDate << ")";
-                        if (!ln.returnDate.empty()) std::cout << " (retourné: "<<ln.returnDate<<")";
-                        std::cout << "\n";
+                if (loans.empty()) {
+                    std::cout << "Aucun emprunt trouve pour le moment\n";
+                } else {
+                    for (auto& ln : loans) {
+                        auto b = lib.books().findBookById(ln.bookId);
+                        if (b) {
+                            std::cout << "- ["<<ln.bookId<<"] "<<b->getTitle();
+                            std::cout << " (emprunté le: " << ln.borrowDate << ")";
+                            if (!ln.returnDate.empty()) std::cout << " (retourné: "<<ln.returnDate<<")";
+                            std::cout << "\n";
+                        }
                     }
                 }
             } else if (choice == 5) {
