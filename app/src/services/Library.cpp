@@ -51,6 +51,10 @@ bool Library::returnBookById(const std::string& bookId) {
     return true;
 }
 
+std::vector<Loan> Library::listActiveLoans() const {
+    return loanManager.getActiveLoans();
+}
+
 std::vector<Loan> Library::listLoansByUserId(const std::string& userId) const {
     return loanManager.getLoansByUserId(userId);
 }

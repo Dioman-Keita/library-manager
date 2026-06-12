@@ -28,6 +28,7 @@ public:
     // Loan operations
     bool borrowBookById(const std::string& bookId, const std::string& userId, const std::string& date);
     bool returnBookById(const std::string& bookId);
+    std::vector<Loan> listActiveLoans() const;
     std::vector<Loan> listLoansByUserId(const std::string& userId) const;
     bool isBookAvailable(const std::string& bookId) const;
     std::vector<Book> findBooksByTitle(const std::string& title) const;

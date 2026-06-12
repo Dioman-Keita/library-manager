@@ -80,8 +80,9 @@ int main() {
             std::cout << "3) Lister les livres\n";
             std::cout << "4) Lister les utilisateurs\n";
             std::cout << "5) Rechercher un livre\n";
-            std::cout << "6) Vérifier la disponibilité d'un livre\n";
-            std::cout << "7) Déconnecter\n";
+            std::cout << "6) Lister les livres empruntés\n";
+            std::cout << "7) Vérifier la disponibilité d'un livre\n";
+            std::cout << "8) Déconnecter\n";
         } else {
             std::cout << "1) Emprunter un livre (par ID)\n";
             std::cout << "2) Retourner un livre (par ID)\n";
@@ -151,8 +152,26 @@ int main() {
                     for (auto& bk : res) std::cout << "- ["<<bk.getId()<<"] "<<bk.getTitle()<<" ISBN:"<<bk.getIsbn()<<"\n";
                 }
             } else if (choice == 6) {
-                checkBookAvailability();
+                auto loans = lib.listActiveLoans();
+                std::cout << "Livres empruntés:\n";
+                if (loans.empty()) {
+                    std::cout << "Aucun livre emprunté pour le moment\n";
+                } else {
+                    for (auto& ln : loans) {
+                        auto book = lib.books().findBookById(ln.bookId);
+                        auto user = lib.users().findUserById(ln.userId);
+                        if (book && user) {
+                            std::cout << "- [" << book->getId() << "] " << book->getTitle()
+                                      << " par " << book->getAuthor()
+                                      << " emprunté par " << user->getName()
+                                      << " <" << user->getEmail() << ">"
+                                      << " le " << ln.borrowDate << "\n";
+                        }
+                    }
+                }
             } else if (choice == 7) {
+                checkBookAvailability();
+            } else if (choice == 8) {
                 currentUser = nullptr; std::cout << "Déconnecté.\n";
             } else {
                 std::cout << "Option inconnue.\n";
