@@ -1,28 +1,57 @@
-// UserManager.cpp - Implémentation du gestionnaire d'utilisateurs
 #include "UserManager.h"
-#include <algorithm>
+#include <iostream>
 
-void UserManager::addUser(const User& user) {
-    users.push_back(user);
+using namespace std;
+
+void UserManager::addUser(Bibliotheque& biblio) {
+    string name, email;
+    int id;
+
+    cout << "\n--- Enregistrement d'un nouvel utilisateur ---" << endl;
+    cout << "Nom : ";
+    getline(cin >> ws, name);
+    cout << "Email : ";
+    cin >> email;
+    cout << "Numéro de membre : ";
+    cin >> id;
+
+    // Création de l'objet User (assure-toi que Assitan a ce constructeur)
+    User newUser(id, name, email);
+    
+    // On l'ajoute au vecteur central de la classe Bibliotheque de Dioman
+    biblio.utilisateurs.push_back(newUser);
+
+    cout << "Utilisateur enregistré avec succès !" << endl;
 }
 
-bool UserManager::removeUser(int id) {
-    auto it = std::find_if(users.begin(), users.end(),
-        [id](const User& u) { return u.getId() == id; });
-    if (it != users.end()) {
-        users.erase(it);
-        return true;
-    }
-    return false;
-}
-
-User* UserManager::findUser(int id) {
-    for (auto& user : users) {
-        if (user.getId() == id) return &user;
+User* UserManager::findUser(Bibliotheque& biblio, int id) {
+    for (size_t i = 0; i < biblio.utilisateurs.size(); ++i) {
+        if (biblio.utilisateurs[i].getId() == id) { // Vérifie le nom du getter avec Assitan
+            return &biblio.utilisateurs[i];
+        }
     }
     return nullptr;
 }
 
-std::vector<User> UserManager::getAllUsers() const {
-    return std::vector<User>(users.begin(), users.end());
+bool UserManager::removeUser(Bibliotheque& biblio, int id) {
+    for (auto it = biblio.utilisateurs.begin(); it != biblio.utilisateurs.end(); ++it) {
+        if (it->getId() == id) {
+            biblio.utilisateurs.erase(it);
+            cout << "Utilisateur supprimé avec succès." << endl;
+            return true;
+        }
+    }
+    cout << "Erreur : Utilisateur introuvable." << endl;
+    return false;
+}
+
+void UserManager::displayAllUsers(const Bibliotheque& biblio) const {
+    cout << "\n--- Liste des membres enregistrés ---" << endl;
+    if (biblio.utilisateurs.empty()) {
+        cout << "Aucun utilisateur dans la base de données." << endl;
+        return;
+    }
+        for (const auto& user : biblio.utilisateurs) {
+        cout << "ID : " << user.getId() << " | Nom : " << user.getName() << " | Email : " << user.getEmail() << endl;
+    }
 }
