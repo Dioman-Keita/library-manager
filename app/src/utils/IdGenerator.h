@@ -1,4 +1,4 @@
-// IdGenerator.h - Générateur d'ID sécurisé (UUID v4-like)
+// IdGenerator.h - Générateur d'ID numérique séquentiel
 #ifndef IDGENERATOR_H
 #define IDGENERATOR_H
 

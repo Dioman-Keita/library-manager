@@ -1,31 +1,50 @@
-// IdGenerator.cpp - Simple UUID-like generator using random_device
+// IdGenerator.cpp - Générateur d'ID numérique séquentiel
 #include "IdGenerator.h"
-#include <random>
-#include <sstream>
-#include <iomanip>
+#include <algorithm>
+#include <cctype>
+#include <fstream>
+#include <string>
 
 namespace util {
-    static std::string to_hex(uint64_t v) {
-        std::ostringstream ss;
-        ss << std::hex << std::setw(16) << std::setfill('0') << v;
-        return ss.str();
+    namespace {
+        unsigned long long nextId = 0;
+        bool seeded = false;
+
+        bool isNumericId(const std::string& value) {
+            return !value.empty() && std::all_of(value.begin(), value.end(), [](unsigned char ch) {
+                return std::isdigit(ch) != 0;
+            });
+        }
+
+        void seedFromFile(const std::string& path) {
+            std::ifstream ifs(path);
+            if (!ifs) return;
+
+            std::string line;
+            while (std::getline(ifs, line)) {
+                auto separator = line.find('|');
+                if (separator == std::string::npos) continue;
+
+                std::string id = line.substr(0, separator);
+                if (isNumericId(id)) {
+                    unsigned long long value = std::stoull(id);
+                    if (value > nextId) nextId = value;
+                }
+            }
+        }
+
+        void seedCounter() {
+            if (seeded) return;
+            seeded = true;
+            seedFromFile("data/books.txt");
+            seedFromFile("data/users.txt");
+            seedFromFile("data/loans.txt");
+        }
     }
 
     std::string generateId() {
-        std::random_device rd;
-        std::mt19937_64 gen(rd());
-        std::uniform_int_distribution<uint64_t> dist;
-
-        // Produce 128 bits and format as hex groups similar to UUID
-        uint64_t a = dist(gen);
-        uint64_t b = dist(gen);
-
-        std::string ha = to_hex(a);
-        std::string hb = to_hex(b);
-
-        // format: 8-4-4-4-12 like UUID but using hex of the two 64-bit values
-        std::string id = ha.substr(0,8) + "-" + ha.substr(8,4) + "-" + ha.substr(12,4)
-            + "-" + hb.substr(0,4) + "-" + hb.substr(4,12);
-        return id;
+        seedCounter();
+        ++nextId;
+        return std::to_string(nextId);
     }
 }

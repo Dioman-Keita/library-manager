@@ -1,2 +1,2 @@
-0df78d93-7eb5-f5a9-a144-674e6ba5ff15|Le sorcier et la sorciere|Dioman Keita|2008|ISBN-009
-84c2debd-3d42-bc7b-0878-76d141e0d2ec|Macha et le ballon d'or|Asma|2003|94040
+1|Le sorcier et la sorciere|Dioman Keita|2008|ISBN-009
+2|Macha et le ballon d'or|Asma|2003|94040
