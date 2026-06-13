@@ -3,22 +3,20 @@
 #define USERMANAGER_H
 
 #include <vector>
-#include "../models/User.h"       // Vérifie que Assitan a bien nommé le fichier User.h
-#include "Bibliotheque.h"         // Pour accéder à la liste centrale
+#include <string>
+#include "../models/User.h"
 
 class UserManager {
+private:
+    std::vector<User> users;
 public:
-    // Ajouter un utilisateur (en demandant les infos en Français)
-    void addUser(Bibliotheque& biblio);
-
-    // Supprimer un utilisateur par son ID
-    bool removeUser(Bibliotheque& biblio, int id);
-
-    // Rechercher un utilisateur par ID
-    User* findUser(Bibliotheque& biblio, int id);
-
-    // Afficher tous les utilisateurs
-    void displayAllUsers(const Bibliotheque& biblio) const;
+    bool addUser(const User& user);
+    bool removeUserById(const std::string& id);
+    User* findUserById(const std::string& id);
+    User* findUserByEmail(const std::string& email);
+    std::vector<User> getAllUsers() const;
+    bool saveToFile(const std::string& path) const;
+    bool loadFromFile(const std::string& path);
 };
 
 

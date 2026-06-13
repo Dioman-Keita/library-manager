@@ -1,34 +1,90 @@
-# LibraryCPP
+# Library Manager
 
-Système de gestion de bibliothèque en C++.
+A simple library management system built in C++ to manage books, users, loans, and data persistence.
 
-## Structure du projet
+## Features
 
-- `app/`
-  - `src/` : Code source
-    - `models/` : Classes Book et User
-    - `services/` : Logique métier (Library, BookManager, UserManager, LoanManager)
-    - `utils/` : Utilitaires (Backup)
-  - `Makefile` : Script de compilation
-  - `README.md` : Documentation du module application
-- `data/` : Fichiers de données (livres, utilisateurs, emprunts)
-- `tests/` : Tests unitaires
-- `docs/` : Documentation
+* 📚 Book management (add, delete, search)
+* 👤 User management
+* 🔄 Loan and return tracking
+* 💾 Data persistence using local files
+* 🛠️ Backup utilities
+* ✅ Unit tests
 
-## Compilation
+## Project Structure
 
-Depuis la racine du dépôt :
-
-```bash
-cd app && make
+```text
+library-manager/
+├── app/
+│   ├── src/
+│   │   ├── models/       # Domain models (Book, User)
+│   │   ├── services/     # Business logic
+│   │   │   ├── Library
+│   │   │   ├── BookManager
+│   │   │   ├── UserManager
+│   │   │   └── LoanManager
+│   │   └── utils/        # Utilities (Backup, helpers)
+│   │
+│   ├── Makefile
+│   ├── CMakeLists.txt
+│   └── README.md
+│
+├── data/                 # Books, users and loan data
+├── tests/                # Unit tests
+└── docs/                 # Project documentation
 ```
 
-Ou en restant à la racine :
+## Requirements
+
+* C++11 or later
+* GNU Make (optional)
+* CMake 3.10+
+
+## Build
+
+### Using Make
+
+From the repository root:
 
 ```bash
 make -C app
 ```
 
-## Auteur
+Or:
 
-Généré automatiquement.
+```bash
+cd app
+make
+```
+
+### Using CMake
+
+```bash
+cd app
+
+cmake -S . -B build
+cmake --build build
+```
+
+## Running
+
+After compilation, launch the generated executable from the build directory.
+
+The `data/` directory is automatically copied next to the executable so the application can access its files at runtime.
+
+## Testing
+
+Run the test suite with:
+
+```bash
+cd app
+make test
+```
+
+## Documentation
+
+Additional documentation is available in the `docs/` directory.
+
+## License
+
+This project is provided for educational purposes.
