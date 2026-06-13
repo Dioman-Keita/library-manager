@@ -13,6 +13,7 @@ private:
     BookManager bookManager;
     UserManager userManager;
     LoanManager loanManager;
+    std::string dataDir = "data";
 public:
     // Book operations
     bool addBook(const Book& book);
@@ -35,7 +36,7 @@ public:
     std::vector<Book> findBooksByAuthor(const std::string& author) const;
     std::vector<Book> findBooksByIsbn(const std::string& isbn) const;
     bool loadData(const std::string& dir);
-    bool saveData(const std::string& dir) const;
+    bool saveData(const std::string& dir);
 };
 
 #endif

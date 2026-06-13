@@ -4,19 +4,19 @@
 
 bool Library::addBook(const Book& book) {
     bool ok = bookManager.addBook(book);
-    if (ok) saveData("data");
+    if (ok) saveData(dataDir);
     return ok;
 }
 
 bool Library::removeBookById(const std::string& id) {
     bool ok = bookManager.removeBookById(id);
-    if (ok) saveData("data");
+    if (ok) saveData(dataDir);
     return ok;
 }
 
 bool Library::registerUser(const User& user) {
     bool ok = userManager.addUser(user);
-    if (ok) saveData("data");
+    if (ok) saveData(dataDir);
     return ok;
 }
 
@@ -40,14 +40,14 @@ bool Library::borrowBookById(const std::string& bookId, const std::string& userI
     if (!userManager.findUserById(userId)) return false;
     if (!loanManager.isBookAvailable(bookId)) return false;
     loanManager.borrowBook(bookId, userId, date);
-    saveData("data");
+    saveData(dataDir);
     return true;
 }
 
 bool Library::returnBookById(const std::string& bookId) {
     if (!bookManager.findBookById(bookId)) return false;
     loanManager.returnBook(bookId);
-    saveData("data");
+    saveData(dataDir);
     return true;
 }
 
@@ -76,6 +76,7 @@ std::vector<Book> Library::findBooksByIsbn(const std::string& isbn) const {
 }
 
 bool Library::loadData(const std::string& dir) {
+    dataDir = dir;
     bool ok1 = bookManager.loadFromFile(dir + "/books.txt");
     bool ok2 = userManager.loadFromFile(dir + "/users.txt");
     bool ok3 = loanManager.loadFromFile(dir + "/loans.txt");
@@ -83,7 +84,8 @@ bool Library::loadData(const std::string& dir) {
     return ok1 || ok2 || ok3;
 }
 
-bool Library::saveData(const std::string& dir) const {
+bool Library::saveData(const std::string& dir) {
+    dataDir = dir;
     bool ok1 = bookManager.saveToFile(dir + "/books.txt");
     bool ok2 = userManager.saveToFile(dir + "/users.txt");
     bool ok3 = loanManager.saveToFile(dir + "/loans.txt");

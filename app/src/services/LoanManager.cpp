@@ -13,9 +13,14 @@ void LoanManager::borrowBook(const std::string& bookId, const std::string& userI
         // generate timestamp
         auto now = std::chrono::system_clock::now();
         std::time_t tt = std::chrono::system_clock::to_time_t(now);
-        char buf[64];
-        std::strftime(buf, sizeof(buf), "%Y-%m-%d %H:%M:%S", std::localtime(&tt));
-        when = buf;
+        struct std::tm* tm_local = std::localtime(&tt);
+        char buf[64] = {0};
+        if (tm_local) {
+            std::strftime(buf, sizeof(buf), "%Y-%m-%d %H:%M:%S", tm_local);
+            when = buf;
+        } else {
+            when = "unknown";
+        }
     }
     loans.push_back({bookId, userId, when, ""});
 }
@@ -26,9 +31,14 @@ void LoanManager::returnBook(const std::string& bookId) {
     if (it != loans.end()) {
         auto now = std::chrono::system_clock::now();
         std::time_t tt = std::chrono::system_clock::to_time_t(now);
-        char buf[64];
-        std::strftime(buf, sizeof(buf), "%Y-%m-%d %H:%M:%S", std::localtime(&tt));
-        it->returnDate = buf;
+        struct std::tm* tm_local = std::localtime(&tt);
+        char buf[64] = {0};
+        if (tm_local) {
+            std::strftime(buf, sizeof(buf), "%Y-%m-%d %H:%M:%S", tm_local);
+            it->returnDate = buf;
+        } else {
+            it->returnDate = "unknown";
+        }
     }
 }
 

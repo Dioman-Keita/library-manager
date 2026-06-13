@@ -5,9 +5,11 @@
 #include <sstream>
 
 bool BookManager::addBook(const Book& book) {
-    // prevent duplicate ISBN
-    auto found = findByIsbn(book.getIsbn());
-    if (!found.empty()) return false;
+    // prevent duplicate ISBN (only if ISBN is not empty)
+    if (!book.getIsbn().empty()) {
+        auto found = findByIsbn(book.getIsbn());
+        if (!found.empty()) return false;
+    }
     books.push_back(book);
     return true;
 }
@@ -73,6 +75,9 @@ bool BookManager::loadFromFile(const std::string& path) {
     books.clear();
     std::string line;
     while (std::getline(ifs, line)) {
+        if (!line.empty() && line.back() == '\r') {
+            line.pop_back(); // handle Windows line endings
+        }
         if (line.empty()) continue;
         std::istringstream ss(line);
         std::string id, title, author, yearstr, isbn;
@@ -81,7 +86,12 @@ bool BookManager::loadFromFile(const std::string& path) {
         if (!std::getline(ss, author, '|')) continue;
         if (!std::getline(ss, yearstr, '|')) continue;
         if (!std::getline(ss, isbn, '|')) isbn = "";
-        int year = std::stoi(yearstr);
+        int year = 0;
+        try {
+            year = std::stoi(yearstr);
+        } catch (const std::exception&) {
+            continue;
+        }
         books.emplace_back(id, title, author, year, isbn);
     }
     return true;

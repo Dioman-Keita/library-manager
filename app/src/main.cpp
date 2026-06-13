@@ -57,8 +57,8 @@ int main() {
                 std::cout << "Nom: "; std::getline(std::cin, name);
                 std::cout << "Email: "; std::getline(std::cin, email);
                 std::cout << "Numéro de membre: "; std::getline(std::cin, memberNumber);
-                if (memberNumber.empty()) {
-                    std::cout << "Erreur: le numéro de membre est obligatoire. Inscription annulée.\n";
+                if (memberNumber.empty() || email.empty() || name.empty()) {
+                    std::cout << "Erreur: tous les champs sont obligatoires. Inscription annulée.\n";
                     continue;
                 }
                 std::string uid = util::generateId();
