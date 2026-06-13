@@ -4,7 +4,7 @@ A simple library management system built in C++ to manage books, users, loans, a
 
 ## Features
 
-* 📚 Book management (add, update, delete, search)
+* 📚 Book management (add, delete, search)
 * 👤 User management
 * 🔄 Loan and return tracking
 * 💾 Data persistence using local files
